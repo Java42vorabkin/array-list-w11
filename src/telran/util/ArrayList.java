@@ -2,12 +2,40 @@ package telran.util;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
 	private static final int DEFAULT_CAPACITY = 16;
 	private T[] array;
 	private int size = 0; 
+	private class ArrayListIterator implements Iterator<T> {
+		int currentInd = 0;
+		ArrayList<T> instance = null;
+		ArrayListIterator(ArrayList<T> list) {
+			instance = list;
+		} 
+		@Override
+		public boolean hasNext() {
+			return currentInd < size;
+			// Done
+		}
+
+		@Override
+		public T next() {
+			// FIXME check currentIndex and throwing exception
+			return array[currentInd++];
+			// Done
+		}
+		@Override
+		public void remove() {
+			//TODO 
+			//removes element that has been returned by the last next call
+			//that is previous of the current.
+			instance.remove(currentInd-1);
+//			ArrayList.this.remove(currentInd-1);
+		} 
+	}
 	@SuppressWarnings("unchecked")
 	public ArrayList(int capacity) {
 		array = (T[]) new Object[capacity];
@@ -158,6 +186,11 @@ public class ArrayList<T> implements List<T> {
 		array = (T[]) new Object[DEFAULT_CAPACITY];
 		size = 0;
 		
+	}
+	@Override
+	public Iterator<T> iterator() {
+		// TODO Auto-generated method stub
+		return new ArrayListIterator(this);
 	}
 	
 
