@@ -11,10 +11,6 @@ public class ArrayList<T> implements List<T> {
 	private int size = 0; 
 	private class ArrayListIterator implements Iterator<T> {
 		int currentInd = 0;
-		ArrayList<T> instance = null;
-		ArrayListIterator(ArrayList<T> list) {
-			instance = list;
-		} 
 		@Override
 		public boolean hasNext() {
 			return currentInd < size;
@@ -32,8 +28,7 @@ public class ArrayList<T> implements List<T> {
 			//TODO 
 			//removes element that has been returned by the last next call
 			//that is previous of the current.
-			instance.remove(currentInd-1);
-//			ArrayList.this.remove(currentInd-1);
+			ArrayList.this.remove(--currentInd);
 		} 
 	}
 	@SuppressWarnings("unchecked")
@@ -190,7 +185,7 @@ public class ArrayList<T> implements List<T> {
 	@Override
 	public Iterator<T> iterator() {
 		// TODO Auto-generated method stub
-		return new ArrayListIterator(this);
+		return new ArrayListIterator();
 	}
 	
 
